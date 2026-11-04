@@ -9,7 +9,8 @@
 # current shared-transport-<tag> branch checked out. AZURERM_DIR must point at
 # a checkout of axiansinfoma/terraform-provider-azurerm.
 #
-# Without flags everything stays local. --push pushes both branches, makes the
+# Without flags everything stays local; re-run with --push afterwards (from the
+# branch the local run left checked out). --push pushes both branches, makes the
 # new provider branch the fork's default branch (workflow_dispatch needs the
 # workflow there) and disables newly added upstream workflows. --build (needs
 # --push) starts "Publish shared-transport packages" for <new-tag>-pooled.1.
@@ -71,7 +72,17 @@ case "$CUR_BRANCH" in
   *) die "check out the current shared-transport-<tag> branch first (on $CUR_BRANCH)" ;;
 esac
 NEW_BRANCH="shared-transport-$NEW_TAG"
-git -C "$PROVIDER_DIR" show-ref --quiet "refs/heads/$NEW_BRANCH" && die "branch $NEW_BRANCH already exists"
+# A local run with an unchanged azurerm pin leaves $NEW_BRANCH checked out;
+# re-running with --push from there only does step 3.
+PREPARED=false
+if [ "$CUR_BRANCH" = "$NEW_BRANCH" ]; then
+  $PUSH || die "$NEW_BRANCH is already prepared; re-run with --push"
+  PREPARED=true
+elif git -C "$PROVIDER_DIR" show-ref --quiet "refs/heads/$NEW_BRANCH"; then
+  die "branch $NEW_BRANCH already exists"
+fi
+
+if ! $PREPARED; then
 
 ensure_remote "$PROVIDER_DIR" upstream "$UPSTREAM_PROVIDER"
 ensure_remote "$AZURERM_DIR" upbound "$UPSTREAM_AZURERM"
@@ -148,9 +159,10 @@ git -C "$PROVIDER_DIR" diff "$OLD_TAG" "$CUR_BRANCH" -- . ':!go.mod' ':!go.sum' 
 log "provider: committed $(git -C "$PROVIDER_DIR" rev-parse --short HEAD) on $NEW_BRANCH"
 
 if ! $PUSH; then
-  log "done (local only). Review both branches, then re-run with --push --build or push by hand."
+  log "done (local only). Review both branches, then re-run with --push [--build] from $NEW_BRANCH."
   exit 0
 fi
+fi # ! $PREPARED
 
 # --- 3. push, default branch, workflows, build ---------------------------------
 git -C "$PROVIDER_DIR" push -q -u origin "$NEW_BRANCH"
