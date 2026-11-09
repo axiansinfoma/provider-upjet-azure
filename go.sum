@@ -56,8 +56,8 @@ github.com/apparentlymart/go-textseg/v12 v12.0.0/go.mod h1:S/4uRK2UtaQttw1GenVJE
 github.com/apparentlymart/go-textseg/v13 v13.0.0/go.mod h1:ZK2fH7c4NqDTLtiYLvIkEghdlcqw7yxLeM89kiTRPUo=
 github.com/apparentlymart/go-textseg/v15 v15.0.0 h1:uYvfpb3DyLSCGWnctWKGj857c6ew1u1fNQOlOtuGxQY=
 github.com/apparentlymart/go-textseg/v15 v15.0.0/go.mod h1:K8XmNZdhEBkdlyDdvbmmsvpAG721bKi0joRfFdHIWJ4=
-github.com/axiansinfoma/terraform-provider-azurerm v0.0.0-20261104072941-c74c9bf55299 h1:KOPpPhKtDqlfv6EK6zZt2CpcG+QkieMioLq2LekGOlc=
-github.com/axiansinfoma/terraform-provider-azurerm v0.0.0-20261104072941-c74c9bf55299/go.mod h1:kELZdTd+vosnkcQ+5jTdKGW614TRPBjPo1sTC1+pOIY=
+github.com/axiansinfoma/terraform-provider-azurerm v0.0.0-20261109151254-c6e6be1ad434 h1:s27xRastmMsbVP23qBaGWrSN1P2Rp9BuL6sTetRNOAE=
+github.com/axiansinfoma/terraform-provider-azurerm v0.0.0-20261109151254-c6e6be1ad434/go.mod h1:kELZdTd+vosnkcQ+5jTdKGW614TRPBjPo1sTC1+pOIY=
 github.com/beorn7/perks v1.0.1 h1:VlbKKnNfV8bJzeqoa4cOKqO6bYr3WgKZxO8Z16+hsOM=
 github.com/beorn7/perks v1.0.1/go.mod h1:G2ZrVWU2WbWT9wwq4/hrbKbnv/1ERSJQ0ibhJ6rlkpw=
 github.com/blang/semver/v4 v4.0.0 h1:1PFHFE6yCCTv8C1TeyNNarDzntLi7wMI5i/pzqYIsAM=
